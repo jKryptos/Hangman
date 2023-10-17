@@ -1,4 +1,4 @@
 # Hangman
-No GUI Hangman w/ difficulty selection.
+CLI Hangman w/ difficulty selection.
 
 This is my first program.
