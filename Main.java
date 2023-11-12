@@ -12,6 +12,9 @@ static int correctGuessCount = 0;
 static int spaceCount = 0;
 
     public static void main(String[] args) {
+        gameStartSetUp();
+    }
+    public static void gameStartSetUp() {
         //User is presented with 3 difficulties. Uses puzzle() for puzzle selection and playGame() to start the game loop.
         Scanner scanner = new Scanner(System.in);
         boolean puzzleChosen = false;
@@ -21,31 +24,20 @@ static int spaceCount = 0;
             System.out.println("Choose a difficulty:\n1. Easy\n2. Intermediate\n3. Hard");
             userInput = Integer.parseInt(scanner.nextLine());
 
-            if (userInput == 1) {
+            if (userInput == 1 || userInput == 2 || userInput == 3) {
+                puzzle(userInput);
                 puzzleChosen = true;
-                puzzle(1);
-            }
-            if (userInput == 2) {
-                puzzleChosen = true;
-                puzzle(2);
-            }
-            if (userInput == 3) {
-                puzzleChosen = true;
-                puzzle(3);
-            }
-            if (puzzleChosen) {
-                System.out.println(" ");
-                playGame();
             } else {
                 System.out.println("Incorrect choice!");
             }
         }
+        playGame();
     }
     public static void playGame(){
     //User asked to guess a letter. Uses flipper() to manipulate puzzle.
     //Check if the guess is in the puzzle and game state is checked here.
     //If the guess was incorrect, it uses drawHangman() to draw the 5 steps of the man.
-        flipper(userGuessList);
+        puzzleManipulator(userGuessList);
 
         Scanner scanner = new Scanner(System.in);
         int hangmanCounter = 0;
@@ -61,7 +53,7 @@ static int spaceCount = 0;
                 System.out.println("|                                          YOU WIN!                                                     |");
                 System.out.println("|                                                                                                       |");
                 System.out.println("|-------------------------------------------------------------------------------------------------------|");
-                break;
+                restartOrQuit();
             }
             //This section is the start of every loop that the user sees, It resets the values for checking a win each pass.
             System.out.println(" ");
@@ -78,13 +70,13 @@ static int spaceCount = 0;
                 System.out.println(" ");
             }
             if (storedPuzzle.contains(userInput)) {
-                flipper(userGuessList);
+                puzzleManipulator(userGuessList);
             } else {
                 //Add hangman piece here.
                 hangmanCounter++;
                 System.out.println("Letter does not exist!");
                 drawHangman(hangmanCounter);
-                flipper(userGuessList);
+                puzzleManipulator(userGuessList);
                 //Check for complete Hangman.
                 if (hangmanCounter == 5){
                     System.out.println(" ");
@@ -95,12 +87,12 @@ static int spaceCount = 0;
                     System.out.println("|                                         GAME OVER                                                     |");
                     System.out.println("|                                                                                                       |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------|");
-                    break;
+                    restartOrQuit();
                 }
             }
         }
     }
-    public static void flipper(List<Character> userGuessList) {
+    public static void puzzleManipulator(List<Character> userGuessList) {
     //Counts spaces(spaceCount) and correct guesses(correctGuessCount). Manipulates the puzzle.
         for (int i = 0;i < storedPuzzle.length();i++){
             if (storedPuzzle.charAt(i) == ' '){
@@ -169,6 +161,16 @@ static int spaceCount = 0;
             //select random puzzle from hard list.
             int hardIndex = rand.nextInt(0,10);
             storedPuzzle = hardPuzzle.get(hardIndex);
+        }
+    }
+    public static void restartOrQuit(){
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Do you want to play again? Choose and press enter.\n1 = Yes\nAny other key = No");
+        int userInput = Integer.parseInt(scanner.nextLine());
+        if (userInput == 1){
+            gameStartSetUp();
+        } else {
+            System.out.println("Thank you for playing!");
         }
     }
     public static void drawHangman(int hangmanCounter){
