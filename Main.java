@@ -165,12 +165,14 @@ static int spaceCount = 0;
     }
     public static void restartOrQuit(){
         Scanner scanner = new Scanner(System.in);
-        System.out.println("Do you want to play again? Choose and press enter.\n1 = Yes\nAny other key = No");
+        System.out.println("Do you want to play again? Yes or No?\n1. Yes\n2. No");
         int userInput = Integer.parseInt(scanner.nextLine());
         if (userInput == 1){
+            userGuessList.clear();
             gameStartSetUp();
         } else {
             System.out.println("Thank you for playing!");
+            System.exit(0);
         }
     }
     public static void drawHangman(int hangmanCounter){
