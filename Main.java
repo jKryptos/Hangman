@@ -10,11 +10,14 @@ static String storedPuzzle = " "; //This is where the randomly selected puzzle i
 static List<Character> userGuessList = new ArrayList<>(); //List of characters guessed by user.
 static int correctGuessCount = 0;
 static int spaceCount = 0;
+static int winCounter = 0;
+static int lossCounter = 0;
 static ArrayList<String> easyPuzzle = new ArrayList<>();
 static ArrayList<String> mediumPuzzle = new ArrayList<>();
 static ArrayList<String> hardPuzzle = new ArrayList<>();
 
     public static void main(String[] args) {
+
         easyPuzzle.add("hello kitty");
         easyPuzzle.add("my little pony");
         easyPuzzle.add("treehouse");
@@ -83,10 +86,14 @@ static ArrayList<String> hardPuzzle = new ArrayList<>();
                 System.out.println("|                                          YOU WIN!                                                     |");
                 System.out.println("|                                                                                                       |");
                 System.out.println("|-------------------------------------------------------------------------------------------------------|");
+                winCounter++;
                 restartOrQuit();
             }
             //This section is the start of every loop that the user sees, It resets the values for checking a win each pass.
             System.out.println(" ");
+            if (winCounter > 0 || lossCounter > 0) {
+                System.out.println("Wins: " + winCounter + " Losses: " + lossCounter);
+            }
             System.out.println("Letters guessed: " + userGuessList);
             System.out.println("Guess a letter: ");
             userInput = scanner.nextLine();
@@ -96,7 +103,7 @@ static ArrayList<String> hardPuzzle = new ArrayList<>();
             spaceCount = 0;
 
             //Adds whitespace between each loop.
-            for(int whiteSpace = 0; whiteSpace <= 3;whiteSpace++){
+            for (int whiteSpace = 0; whiteSpace <= 3;whiteSpace++){
                 System.out.println(" ");
             }
             if (storedPuzzle.contains(userInput)) {
@@ -116,6 +123,7 @@ static ArrayList<String> hardPuzzle = new ArrayList<>();
                     System.out.println("|                                         GAME OVER                                                     |");
                     System.out.println("|                                                                                                       |");
                     System.out.println("|-------------------------------------------------------------------------------------------------------|");
+                    lossCounter++;
                     restartOrQuit();
                 }
             }
