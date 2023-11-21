@@ -58,7 +58,7 @@ static ArrayList<String> hardPuzzle = new ArrayList<>();
             userInput = Integer.parseInt(scanner.nextLine());
 
             if (userInput == 1 || userInput == 2 || userInput == 3) {
-                puzzleChoser(userInput);
+                puzzleSelector(userInput);
                 puzzleChosen = true;
             } else {
                 System.out.println("Incorrect choice!");
@@ -135,7 +135,7 @@ static ArrayList<String> hardPuzzle = new ArrayList<>();
             }
         }
     }
-    public static void puzzleChoser(int difficulty){
+    public static void puzzleSelector(int difficulty){
         Random rand = new Random();
 
         if (difficulty == 1){
