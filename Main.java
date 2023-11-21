@@ -10,12 +10,45 @@ static String storedPuzzle = " "; //This is where the randomly selected puzzle i
 static List<Character> userGuessList = new ArrayList<>(); //List of characters guessed by user.
 static int correctGuessCount = 0;
 static int spaceCount = 0;
+static ArrayList<String> easyPuzzle = new ArrayList<>();
+static ArrayList<String> mediumPuzzle = new ArrayList<>();
+static ArrayList<String> hardPuzzle = new ArrayList<>();
 
     public static void main(String[] args) {
+        easyPuzzle.add("hello kitty");
+        easyPuzzle.add("my little pony");
+        easyPuzzle.add("treehouse");
+        easyPuzzle.add("chocolate");
+        easyPuzzle.add("hop and a skip");
+        easyPuzzle.add("cellphones");
+        easyPuzzle.add("video games");
+        easyPuzzle.add("big dinosaurs");
+        easyPuzzle.add("butterfly");
+        easyPuzzle.add("nova scotia");
+        mediumPuzzle.add("this game was fun to make");
+        mediumPuzzle.add("do not run with scissors");
+        mediumPuzzle.add("stay away from angry chickens");
+        mediumPuzzle.add("potatoes bananas gravy and mushrooms");
+        mediumPuzzle.add("spongebob square pants");
+        mediumPuzzle.add("whatever happened to crazy frog");
+        mediumPuzzle.add("pumpkin slices on hard biscuits");
+        mediumPuzzle.add("a ride on the magic school bus");
+        mediumPuzzle.add("pumpernickel bread");
+        mediumPuzzle.add("to infinity and beyond");
+        hardPuzzle.add("when running with zebras on the african savannah be sure to bring a hat");
+        hardPuzzle.add("rhythm games are super fun drums are cool but guitar hero is the best");
+        hardPuzzle.add("roses are red the sky is blue throw flowers in the air for something to do");
+        hardPuzzle.add("oh my god the chickens are coming like a flock of locusts");
+        hardPuzzle.add("these chickens are trying to get in through my windows");
+        hardPuzzle.add("i wish i had a basement so i could hide from all of these darn chickens");
+        hardPuzzle.add("blueberry pancakes are delicious so are chocolate chip waffles");
+        hardPuzzle.add("unicorns run through the fields of narnia and battle with keebler elves");
+        hardPuzzle.add("godzilla just wanted a hug and maybe some sour twizzlers");
+        hardPuzzle.add("ninja backflip into the attic that trick was quick now hes back with an elastic");
+
         gameStartSetUp();
     }
     public static void gameStartSetUp() {
-        //User is presented with 3 difficulties. Uses puzzle() for puzzle selection and playGame() to start the game loop.
         Scanner scanner = new Scanner(System.in);
         boolean puzzleChosen = false;
         int userInput = 0;
@@ -25,7 +58,7 @@ static int spaceCount = 0;
             userInput = Integer.parseInt(scanner.nextLine());
 
             if (userInput == 1 || userInput == 2 || userInput == 3) {
-                puzzle(userInput);
+                puzzleChoser(userInput);
                 puzzleChosen = true;
             } else {
                 System.out.println("Incorrect choice!");
@@ -34,9 +67,6 @@ static int spaceCount = 0;
         playGame();
     }
     public static void playGame(){
-    //User asked to guess a letter. Uses flipper() to manipulate puzzle.
-    //Check if the guess is in the puzzle and game state is checked here.
-    //If the guess was incorrect, it uses drawHangman() to draw the 5 steps of the man.
         puzzleManipulator(userGuessList);
 
         Scanner scanner = new Scanner(System.in);
@@ -72,7 +102,6 @@ static int spaceCount = 0;
             if (storedPuzzle.contains(userInput)) {
                 puzzleManipulator(userGuessList);
             } else {
-                //Add hangman piece here.
                 hangmanCounter++;
                 System.out.println("Letter does not exist!");
                 drawHangman(hangmanCounter);
@@ -106,59 +135,18 @@ static int spaceCount = 0;
             }
         }
     }
-    public static void puzzle(int difficulty){
-        //Contains the puzzles, sorted by their difficulty types.
-
-        ArrayList<String> easyPuzzle = new ArrayList<>();
-        easyPuzzle.add("hello kitty");
-        easyPuzzle.add("my little pony");
-        easyPuzzle.add("treehouse");
-        easyPuzzle.add("chocolate");
-        easyPuzzle.add("hop and a skip");
-        easyPuzzle.add("cellphones");
-        easyPuzzle.add("video games");
-        easyPuzzle.add("big dinosaurs");
-        easyPuzzle.add("butterfly");
-        easyPuzzle.add("nova scotia");
-
-        ArrayList<String> mediumPuzzle = new ArrayList<>();
-        mediumPuzzle.add("this game was fun to make");
-        mediumPuzzle.add("do not run with scissors");
-        mediumPuzzle.add("stay away from angry chickens");
-        mediumPuzzle.add("potatoes bananas gravy and mushrooms");
-        mediumPuzzle.add("spongebob square pants");
-        mediumPuzzle.add("whatever happened to crazy frog");
-        mediumPuzzle.add("pumpkin slices on hard biscuits");
-        mediumPuzzle.add("a ride on the magic school bus");
-        mediumPuzzle.add("pumpernickel bread");
-        mediumPuzzle.add("to infinity and beyond");
-
-        ArrayList<String> hardPuzzle = new ArrayList<>();
-        hardPuzzle.add("when running with zebras on the african savannah be sure to bring a hat");
-        hardPuzzle.add("rhythm games are super fun drums are cool but guitar hero is the best");
-        hardPuzzle.add("roses are red the sky is blue throw flowers in the air for something to do");
-        hardPuzzle.add("oh my god the chickens are coming like a flock of locusts");
-        hardPuzzle.add("these chickens are trying to get in through my windows");
-        hardPuzzle.add("i wish i had a basement so i could hide from all of these darn chickens");
-        hardPuzzle.add("blueberry pancakes are delicious so are chocolate chip waffles");
-        hardPuzzle.add("unicorns run through the fields of narnia and battle with keebler elves");
-        hardPuzzle.add("godzilla just wanted a hug and maybe some sour twizzlers");
-        hardPuzzle.add("ninja backflip into the attic that trick was quick now hes back with an elastic");
-
+    public static void puzzleChoser(int difficulty){
         Random rand = new Random();
 
         if (difficulty == 1){
-            //select random puzzle from easy list.
             int easyIndex = rand.nextInt(0,10);
             storedPuzzle = easyPuzzle.get(easyIndex);
         }
         if (difficulty == 2){
-            //select random puzzle from medium list.
             int mediumIndex = rand.nextInt(0,10);
             storedPuzzle = mediumPuzzle.get(mediumIndex);
         }
         if (difficulty == 3){
-            //select random puzzle from hard list.
             int hardIndex = rand.nextInt(0,10);
             storedPuzzle = hardPuzzle.get(hardIndex);
         }
