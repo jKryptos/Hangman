@@ -18,15 +18,15 @@ static ArrayList<String> hardPuzzle = new ArrayList<>();
 
     public static void main(String[] args) {
 
-        easyPuzzle.add("hello kitty");
-        easyPuzzle.add("my little pony");
-        easyPuzzle.add("treehouse");
-        easyPuzzle.add("chocolate");
+        easyPuzzle.add("hello kitty island adventure");
+        easyPuzzle.add("yogi bear and boo boo");
+        easyPuzzle.add("treehouse or teletoon");
+        easyPuzzle.add("chocolate bar");
         easyPuzzle.add("hop and a skip");
-        easyPuzzle.add("cellphones");
-        easyPuzzle.add("video games");
+        easyPuzzle.add("cellphones listen to you");
+        easyPuzzle.add("play video games");
         easyPuzzle.add("big dinosaurs");
-        easyPuzzle.add("butterfly");
+        easyPuzzle.add("butterfly dust");
         easyPuzzle.add("nova scotia");
         mediumPuzzle.add("this game was fun to make");
         mediumPuzzle.add("do not run with scissors");
@@ -91,9 +91,7 @@ static ArrayList<String> hardPuzzle = new ArrayList<>();
             }
             //This section is the start of every loop that the user sees, It resets the values for checking a win each pass.
             System.out.println(" ");
-            if (winCounter > 0 || lossCounter > 0) {
-                System.out.println("Wins: " + winCounter + " Losses: " + lossCounter);
-            }
+            System.out.println("Wins: " + winCounter + " Losses: " + lossCounter);
             System.out.println("Letters guessed: " + userGuessList);
             System.out.println("Guess a letter: ");
             userInput = scanner.nextLine();
@@ -107,10 +105,11 @@ static ArrayList<String> hardPuzzle = new ArrayList<>();
                 System.out.println(" ");
             }
             if (storedPuzzle.contains(userInput)) {
+                System.out.println("Letter was found!");
                 puzzleManipulator(userGuessList);
             } else {
                 hangmanCounter++;
-                System.out.println("Letter does not exist!");
+                System.out.println("Letter was not found!");
                 drawHangman(hangmanCounter);
                 puzzleManipulator(userGuessList);
                 //Check for complete Hangman.
